@@ -529,9 +529,6 @@ def run_training_solver(autoencoder_trained, model, num_epochs, lr, batch_size, 
         lr=lr,
         weight_decay = 1e-6
     )
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='min', factor=0.5, patience=10
-    )
 
     criterion = torch.nn.functional.mse_loss
     # ===== Train Model =====
@@ -548,7 +545,7 @@ def run_training_solver(autoencoder_trained, model, num_epochs, lr, batch_size, 
         val_loss= validate_solver(model, device, val_loader, criterion, autoencoder_trained)
         val_loss_history.append(val_loss)
 
-        scheduler.step(val_loss)
+        #scheduler.step(val_loss)
 
     return model, train_loss_history,  val_loss_history
 
