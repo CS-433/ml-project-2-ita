@@ -149,7 +149,7 @@ def visualize_solution(field_array, basis_space, basis_time, Nh_space, Nh_time, 
 
     mesh = read_vtk(os.path.join(DATASET_PATH, 'geometries', 'bif_sym_alpha50_h0.10.vtu'))
 
-    cur_idxs = np.hstack([idxs + k * (Nh_space/3) for k in range(3)])
+    cur_idxs = np.hstack([idxs + k * (Nh_space//3) for k in range(3)])
     fom_solution = expand(field_array, basis_space, basis_time)[cur_idxs]
 
     for cnt_t in range(0, Nh_time, step_t):
