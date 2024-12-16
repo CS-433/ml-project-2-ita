@@ -37,7 +37,6 @@ def load_params():
     basis_time = basis_time[:, :nmodes_time]
 
     #Load solutions (ouput)
-    
     _sol = np.load(os.path.join(DATASET_PATH, 'RB_data', 'solutions.npy'))
     
     # velocity reduced solutions (with and without supremizers and stabilizers)
@@ -55,7 +54,7 @@ def load_params():
 
 def project(sol, normed_basis_space, basis_time):
     """ Project a full-order solution in space-time."""
-    return (normed_basis_space.T.dot(sol)).dot(basis_time) # !! REMARK: here we need the normed basis in space !!
+    return (normed_basis_space.T.dot(sol)).dot(basis_time) 
 
 def expand(sol, basis_space, basis_time):
     """ Expand a reduced-order solution in space-time."""

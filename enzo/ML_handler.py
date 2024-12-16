@@ -57,9 +57,6 @@ def train_solver_autoencoder_epoch(model, device, train_loader, optimizer, crite
         assert output_decoder.shape == target.shape
         assert output_solver.shape == output_encoder.shape
 
-        
-        # target=target*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)  #denormalize
-        # output_decoder=output_decoder*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
         target=denormalize(target, vel_space_min, vel_space_max, margin=0.05) 
         output_decoder=denormalize(output_decoder, vel_space_min, vel_space_max, margin=0.05) 
 
@@ -114,8 +111,6 @@ def validate_solver_autoencoder(model, device, val_loader, criterion, vel_space_
         assert output_decoder.shape == target.shape
         assert output_solver.shape == output_encoder.shape
 
-        # target=target*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)   #denormalize
-        # output_decoder=output_decoder*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
         target=denormalize(target, vel_space_min, vel_space_max, margin=0.05) 
         output_decoder=denormalize(output_decoder, vel_space_min, vel_space_max, margin=0.05) 
 
@@ -132,7 +127,6 @@ def validate_solver_autoencoder(model, device, val_loader, criterion, vel_space_
 
         output_model_predict = model.predict(data)    #compute output
 
-        # output_model_predict=output_model_predict*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
         output_model_predict=denormalize(output_model_predict, vel_space_min, vel_space_max, margin=0.05) 
 
         test_rel_loss += ((torch.norm((output_model_predict-target).view(output_model_predict.shape[0], -1), dim=1, p=2)/torch.norm((target).view(output_model_predict.shape[0], -1), dim=1, p=2)).sum()).item()
@@ -264,8 +258,6 @@ def train_autoencoder_epoch(autoencoder, device, train_loader, optimizer, criter
 
         assert output_decoder.shape == target.shape
 
-        # target=target*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
-        # output_decoder=output_decoder*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
         target=denormalize(target, vel_space_min, vel_space_max, margin=0.05) 
         output_decoder=denormalize(output_decoder, vel_space_min, vel_space_max, margin=0.05) 
 
@@ -303,7 +295,7 @@ def validate_autoencoder(autoencoder, device, val_loader, criterion, vel_space_m
             
             
     """
-    autoencoder.eval()  # Important set model to eval mode (affects dropout, batch norm etc)
+    autoencoder.eval()  
     test_loss = 0
 
     for data, target in val_loader:
@@ -312,8 +304,6 @@ def validate_autoencoder(autoencoder, device, val_loader, criterion, vel_space_m
         output_encoder, output_decoder = autoencoder.forward(target)
         assert output_decoder.shape == target.shape
 
-        # target=target*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
-        # output_decoder=output_decoder*(1.05*vel_space_max.to(device) - 0.95*vel_space_min.to(device))+0.95*vel_space_min.to(device)
         target=denormalize(target, vel_space_min, vel_space_max, margin=0.05) 
         output_decoder=denormalize(output_decoder, vel_space_min, vel_space_max, margin=0.05) 
 
@@ -360,10 +350,9 @@ def run_training(model, num_epochs, lr, batch_size, train_params, train_vel, tes
     train_loader = torch.utils.data.DataLoader(
         train_vel_DataSet,
         batch_size=batch_size,
-        shuffle=True,  # Can be important for training
+        shuffle=True, 
         pin_memory=torch.cuda.is_available(),
         drop_last=True,
-        # num_workers=2,
         num_workers=0
     )
     val_loader = torch.utils.data.DataLoader(
@@ -516,10 +505,9 @@ def run_training_solver(autoencoder_trained, model, num_epochs, lr, batch_size, 
     train_loader = torch.utils.data.DataLoader(
         train_vel_DataSet,
         batch_size=batch_size,
-        shuffle=True,  # Can be important for training
+        shuffle=True, 
         pin_memory=torch.cuda.is_available(),
         drop_last=True,
-        # num_workers=2,
         num_workers=0
     )
     val_loader = torch.utils.data.DataLoader(
@@ -538,6 +526,8 @@ def run_training_solver(autoencoder_trained, model, num_epochs, lr, batch_size, 
         weight_decay = 1e-6
     )
 
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.99)
+
     criterion = torch.nn.functional.mse_loss
     # ===== Train Model =====
     train_loss_history = []
@@ -553,7 +543,7 @@ def run_training_solver(autoencoder_trained, model, num_epochs, lr, batch_size, 
         val_loss= validate_solver(model, device, val_loader, criterion, autoencoder_trained)
         val_loss_history.append(val_loss)
 
-        #scheduler.step(val_loss)
+        scheduler.step()
 
     return model, train_loss_history,  val_loss_history
 

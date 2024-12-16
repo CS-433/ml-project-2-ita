@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def plot(ax, train_loss_history, val_loss_history, num_epochs):
     """
-          Plot on ax the train loos, the validation loss given the number of epochs
+          Plot on ax the train loss, the validation loss given the number of epochs
 
           Args:
               ax: axis on which to plot
