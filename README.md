@@ -2,7 +2,7 @@
 Project 2 of **EPFL CS-433 Machine Learning**.
 
 **Team name**: ITA  
-**Team members**: Manuel Curnis, Alessandro Di Maria, Vincenzo Pio Scurria
+**Team members**: Manuel Curnis, Alessandro Di Maria, Vincenzo Pio Scurria  
 **Supervisors**: Riccardo Tenderini, Simone Deparis
 
 
@@ -26,7 +26,7 @@ Functions provided by: Riccardo Tenderini (SCI SB SD Group, EPFL) to load the da
 ### 2. models.py
 This file contains the deep learning models that will be trained in run.py
 
-### 4. plot_hanlder.py
+### 3. plot_hanlder.py
 contains a functions to plot train loss and validation loss
 
 ## usage
