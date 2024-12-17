@@ -21,7 +21,7 @@ that in parallel maps physical parameters to these latent variables.
 - Install the required dependencies: pip install -r requirements.txt
 - Launch Jupyter Lab: jupyter lab
 - Run the file "run.ipynb" (already executed )
-- 
+
 ## Files
 
 ### 1. run.ipynb
