@@ -11,7 +11,7 @@ Project 2 of **EPFL CS-433 Machine Learning**.
 ## Overview
 This project aims to develop a space-time Proper Orthogonal
 Decomposition – Deep Learning - Reduced Order Model (POD-DL-ROM) for deriving a data-driven reduced-order solution to the time-dependent Navier-Stokes equations in a blood vessel.
-an autoencoder with dense layers that efficiently compresses POD coefficients of velocity (spatial and temporal) into a lowerdimensional latent space and a fully connected neural network
+architecture includes an autoencoder with dense layers that efficiently compresses POD coefficients of velocity (spatial and temporal) into a lowerdimensional latent space and a fully connected neural network
 that in parallel maps physical parameters to these latent variables.
 
 ## Files
