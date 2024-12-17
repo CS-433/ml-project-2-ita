@@ -14,6 +14,14 @@ Decomposition – Deep Learning - Reduced Order Model (POD-DL-ROM) for deriving 
 architecture includes an autoencoder with dense layers that efficiently compresses POD coefficients of velocity (spatial and temporal) into a lowerdimensional latent space and a fully connected neural network
 that in parallel maps physical parameters to these latent variables.
 
+## usage
+- Clone the repository.
+- Create a Conda environment: conda create --name project2 python=3.12.8 -y (PyTorch may not be compatible with the latest Python  versions )
+- Activate the environment: conda activate project2
+- Install the required dependencies: pip install -r requirements.txt
+- Launch Jupyter Lab: jupyter lab
+- Run the file "run.ipynb" (already executed )
+- 
 ## Files
 
 ### 1. run.ipynb
@@ -26,12 +34,12 @@ Functions provided by: Riccardo Tenderini (SCI SB SD Group, EPFL) to load the da
 ### 2. models.py
 This file contains the deep learning models that will be trained in run.py
 
-### 3. plot_hanlder.py
+### 3. ML_handler.py
+This file contains the functions used to train and validate the models
+
+### 4. plot_hanlder.py
 contains a functions to plot train loss and validation loss
 
-## usage
-
-Modify the variable DATASET_PATH in file "data_handler.py", with the path to the dataset containing all the data, then Run file "run.py".
 
 
 

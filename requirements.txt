@@ -3,4 +3,8 @@ vtk
 meshio
 scipy
 matplotlib
-pytorch
+torch
+torchvision
+torchaudio
+jupyter
+seaborn
