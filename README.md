@@ -37,7 +37,7 @@ This file contains the deep learning models that will be trained in run.py
 ### 3. ML_handler.py
 This file contains the functions used to train and validate the models
 
-### 4. plot_hanlder.py
+### 4. plot_handler.py
 contains a functions to plot train loss and validation loss
 
 
