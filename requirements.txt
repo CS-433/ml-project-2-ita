@@ -1,0 +1,6 @@
+numpy 
+vtk
+meshio
+scipy
+matplotlib
+pytorch
